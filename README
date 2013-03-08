@@ -10,8 +10,8 @@ wunderlist database name is = WKModel.sqlite
 * zresouce is the table that holds all tasks and list
 * znote is the note associated with a task
 * list all projects : select ZTITLE, z_pk, ZTASKLIST from ZRESOURCE where ZTASKLIST is NULL;
-* list all tasks : select ZTITLE, znote, z_pk, ZTASKLIST from ZRESOURCE where ZTASKLIST is not NULL;
-* if wunderlist is closed, this database can be edited and when wunderlist is opened it will reflect the new database but it will not sync those changes.
+* list all tasks : select ZTITLE, znote, ZTASKLIST from ZRESOURCE where ZTASKLIST is not NULL;
+* if wunderlist is closed, this database can be edited and when wunderlist is opened it will reflect the new database but it will not sync those changes. This has something to do with the creationDate, syncStatus and changedDate attributes. I think these might be what keeps track of the changes and syncing of those changes.
 
 ##things database structure
 
