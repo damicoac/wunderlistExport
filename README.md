@@ -12,8 +12,8 @@ The ruby script takes one arguement. It is the output directory you want the Tas
 ##Developer Notes:
 wunderlist database name is = WKModel.sqlite
 
-##wunderlist database structure
-*select ZTITLE, znote, z_pk, ZTASKLIST from ZRESOURCE;
+###wunderlist database structure
+* select ZTITLE, znote, z_pk, ZTASKLIST from ZRESOURCE;
 * Ztitle is task or list title
 * z_pk is int identifier of ztitle if it is a list, if not then is is a iterated number
 * ztasklist is the z_pk int of the tasks matching list, this is only true if the ztitle is a task and not a list
