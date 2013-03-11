@@ -53,28 +53,34 @@ end
 		#puts projectInt
 		#puts projectName
 
-		exportFile << ""+projectName+": \n"
+		exportFile << ""+projectName+":\n"
 		wunderlistDatabase.execute("select ZTITLE, znote, zduedate, zcompletedat, ZTASKLIST from ZRESOURCE where ZTASKLIST=?",projectInt ) do |row|
 			
 			#convert date which is row[2]
 			#puts row[0] 
 			#puts row[1]
+			task = row[0]
+			note = row[1]
+			dueDate = row[2]
+			completedDate = row[3]
 
-			if row [1] == nil
-				row[1] = ""
-			end
-
-			if row[2]== nil
-				row[2]= ""
+			if note == nil and dueDate == nil and completedDate == nil
+				exportFile << "    - "+task+"\n"
 			else
-				row[2] = Time.at(row[2]).to_s()	
-				#puts row[2]
+				if dueDate!= nil and completedDate == nil
+					exportFile << "    - "+task+" @:"+Time.at(dueDate).to_s()+"\n"	
+					#puts row[2]
+				end
+				if completedDate != nil
+					exportFile <<  "    - "+task+" @done"+"\n"
+				end
+				if task != nil and note != nil and dueDate == nil and completedDate == nil
+					exportFile << "    - "+task+"\n"
+				end
+				if note != nil
+					exportFile << "    "+note+"\n"
+				end
 			end
-			if row[3] != nil
-				row[2] = "DONE"
-			end
-			
-			exportFile << "        - "+row[0]+" :"+row[1]+" @"+row[2]+" \n"
 		end
 		k+=1
 	end 

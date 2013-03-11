@@ -4,10 +4,17 @@ Ruby script to export tasks from Wunderlist 2. Requires Ruby 1.9 or greater (tes
 * Needs to parse the due dates for each task better
 * Need to make output meet Taskpaper format
 * Need more robust error checking
+* Doesnt expoxt subtasks properly
+* Need to add command line arguements
 
 ###Usage:
 
 The ruby script takes one arguement. It is the output directory you want the Tasks to be output to. This directory must exist or everything will crash. The script will make a file with all tasks in it. It is recommended that you exit Wunderlist 2 before running this script.
+
+example:
+```
+ ruby wunderlistExport.rb ~/Desktop/
+ ```
 
 ##Developer Notes:
 wunderlist database name is = WKModel.sqlite
