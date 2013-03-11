@@ -71,7 +71,7 @@ end
 				#puts row[2]
 			end
 			if row[3] != nil
-				row[2] = "@DONE"
+				row[2] = "DONE"
 			end
 			
 			exportFile << "        - "+row[0]+" :"+row[1]+" @"+row[2]+" \n"
