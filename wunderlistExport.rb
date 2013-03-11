@@ -19,8 +19,8 @@ exportFile = File.new(extractPath,"w")
 
 #extraction logic
 # locate wunderlist database
-wunderlistDb = File.expand_path("~/Documents/Code/wunderlistExport/reference db/WKModel.sqlite")
-#wunderlistDatabase = File.expand_path("~/Library/Containers/com.wunderkinder.wunderlistdesktop/Data/Library/Application Support/Wunderlist/WKModel.sqlite")
+#wunderlistDb = File.expand_path("~/Documents/Code/wunderlistExport/reference db/WKModel.sqlite")
+wunderlistDb = File.expand_path("~/Library/Containers/com.wunderkinder.wunderlistdesktop/Data/Library/Application Support/Wunderlist/WKModel.sqlite")
 projectIntMap = Hash.new
 hashIterator = Array.new
 
@@ -54,7 +54,7 @@ end
 		#puts projectName
 
 		exportFile << ""+projectName+": \n"
-		wunderlistDatabase.execute("select ZTITLE, znote, zduedate, ZTASKLIST from ZRESOURCE where ZTASKLIST=?",projectInt ) do |row|
+		wunderlistDatabase.execute("select ZTITLE, znote, zduedate, zcompletedat, ZTASKLIST from ZRESOURCE where ZTASKLIST=?",projectInt ) do |row|
 			
 			#convert date which is row[2]
 			#puts row[0] 
@@ -69,6 +69,9 @@ end
 			else
 				row[2] = Time.at(row[2]).to_s()	
 				#puts row[2]
+			end
+			if row[3] != nil
+				row[2] = "@DONE"
 			end
 			
 			exportFile << "        - "+row[0]+" :"+row[1]+" @"+row[2]+" \n"
