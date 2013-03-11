@@ -68,7 +68,10 @@ end
 				exportFile << "    - "+task+"\n"
 			else
 				if dueDate!= nil and completedDate == nil
-					exportFile << "    - "+task+" @:"+Time.at(dueDate).to_s()+"\n"	
+					time = Time.at(dueDate)
+					time = time + (60*60*24*365*31)
+					time = time.month.to_s() + "/" + time.day.to_s() + "/" + time.year.to_s()
+					exportFile << "    - "+task+" @"+time+"\n"	
 					#puts row[2]
 				end
 				if completedDate != nil

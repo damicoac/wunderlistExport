@@ -1,11 +1,11 @@
 Ruby script to export tasks from Wunderlist 2. Requires Ruby 1.9 or greater (tested and working with ruby 2.0), sqlite3 gem installed. Works on Mac only. Only tested with 10.8.
 
 ###Issues:
-* Needs to parse the due dates for each task better
-* Need to make output meet Taskpaper format
 * Need more robust error checking
 * Doesnt expoxt subtasks properly
 * Need to add command line arguements
+* It currently doesnt parse dates properly
+* It currently doesnt export recurring tasks
 
 ###Usage:
 
