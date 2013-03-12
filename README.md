@@ -2,7 +2,7 @@ Ruby script to export tasks from Wunderlist 2. Requires Ruby 1.9 or greater (tes
 
 ###Issues:
 * Need more robust error checking
-* Doesnt expoxt subtasks properly
+* Doesnt export subtasks properly
 * Need to add command line arguements
 * It currently doesnt parse dates properly. It is off by one day.
 * need to double check that recurring tasks are properly parsed
