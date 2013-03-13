@@ -14,7 +14,7 @@ if ARGV.length !=1
     exit
 end
 
-extractPath = ARGV[0]+"WunderListProjects.txt"
+extractPath = ARGV[0]+"WunderListProjects.md"
 exportFile = File.new(extractPath,"w")
 
 #extraction logic
@@ -53,7 +53,7 @@ end
 		#puts projectInt
 		#puts projectName
 
-		exportFile << ""+projectName+":\n"
+		exportFile << "\n###"+projectName+":\n"
 		wunderlistDatabase.execute("select ZTITLE, znote, zduedate, zcompletedat, ZTASKLIST from ZRESOURCE where ZTASKLIST=?",projectInt ) do |row|
 			
 			#convert date which is row[2]
@@ -65,24 +65,24 @@ end
 			completedDate = row[3]
 
 			if note == nil and dueDate == nil and completedDate == nil
-				exportFile << "    - "+task+"\n"
+				exportFile << "- "+task+"\n"
 			else
 				if dueDate!= nil and completedDate == nil
 					time = Time.at(dueDate)
 					year = time.year.to_i()+31
 					year = year.to_s()
 					time = time.month.to_s() + "/" + time.day.to_s() + "/" + year
-					exportFile << "    - "+task+" @"+time+"\n"	
+					exportFile << "- "+task+" **"+time+"**\n"	
 					#puts row[2]
 				end
 				if completedDate != nil
-					exportFile <<  "    - "+task+" @done"+"\n"
+					exportFile <<  "- *"+task+"* **@done**\n"
 				end
 				if task != nil and note != nil and dueDate == nil and completedDate == nil
-					exportFile << "    - "+task+"\n"
+					exportFile << "- "+task+"\n"
 				end
 				if note != nil
-					exportFile << "    "+note+"\n"
+					exportFile << "`\n"+note+"\n`\n"
 				end
 			end
 		end
