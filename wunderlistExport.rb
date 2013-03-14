@@ -69,9 +69,9 @@ end
 			else
 				if dueDate!= nil and completedDate == nil
 					time = Time.at(dueDate)
-					year = time.year.to_i()+31
-					year = year.to_s()
-					time = time.month.to_s() + "/" + time.day.to_s() + "/" + year
+					correctDate = time.to_i()+978336000 #+11  and 8 hours years
+					newTime = Time.at(correctDate)
+					time = newTime.month.to_s() + "/" + newTime.day.to_s() + "/" + newTime.year.to_s()
 					exportFile << "- "+task+" **"+time+"**\n"	
 					#puts row[2]
 				end
