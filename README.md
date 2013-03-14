@@ -1,4 +1,4 @@
-Ruby script to export tasks from Wunderlist 2. Requires Ruby 1.9 or greater (tested and working with ruby 2.0), sqlite3 gem installed. Works on Mac only. Only tested with 10.8.
+Ruby script to export tasks from Wunderlist 2. Requires Ruby 1.9 or greater (tested and working with ruby 2.0), sqlite3 gem installed. Works on Mac only. Only tested with 10.8. Must be using the Mac App Store version of Wunderlist 2. Tested with with Wunderlist 2.0.5
 
 ###Issues:
 * Need more robust error checking
