@@ -9,12 +9,14 @@ require 'date'
 #main
 
 #read command line inputs
-if ARGV.length !=1
-    puts "Incorrect Arguments. Only one arguement required : path for extracted highlights to be saved."
+if ARGV.length !=0
+    puts "Incorrect. Takes no arguements"
     exit
 end
 
-extractPath = ARGV[0]+"WunderListProjects.md"
+puts "Extracting . . . "
+
+extractPath = File.expand_path("~/Desktop/WunderListProjects.md")
 exportFile = File.new(extractPath,"w")
 
 #extraction logic
@@ -26,6 +28,7 @@ hashIterator = Array.new
 
 i = 0
 k = 0
+taskTotal = 0
 
 #open database
 wunderlistDatabase = SQLite3::Database.open(wunderlistDb)
@@ -44,49 +47,52 @@ end
 #puts projectIntMap
 #puts hashIterator
 
-	while k < hashIterator.length
+while k < hashIterator.length
 
-		#print out project name
-		projectInt=hashIterator[k]
-		projectName=projectIntMap[projectInt]
+	#print out project name
+	projectInt=hashIterator[k]
+	projectName=projectIntMap[projectInt]
+	
+	#puts projectInt
+	#puts projectName
 
-		#puts projectInt
-		#puts projectName
-
-		exportFile << "\n###"+projectName+":\n"
-		wunderlistDatabase.execute("select ZTITLE, znote, zduedate, zcompletedat, ZTASKLIST from ZRESOURCE where ZTASKLIST=?",projectInt ) do |row|
+	exportFile << "\n###"+projectName+":\n"
+	wunderlistDatabase.execute("select ZTITLE, znote, zduedate, zcompletedat, ZTASKLIST from ZRESOURCE where ZTASKLIST=?",projectInt ) do |row|
 			
-			#convert date which is row[2]
-			#puts row[0] 
-			#puts row[1]
-			task = row[0]
-			note = row[1]
-			dueDate = row[2]
-			completedDate = row[3]
+		#convert date which is row[2]
+		#puts row[0] 
+		#puts row[1]
+		task = row[0]
+		note = row[1]
+		dueDate = row[2]
+		completedDate = row[3]
 			
-			if note == nil and dueDate == nil and completedDate == nil
+		if note == nil and dueDate == nil and completedDate == nil
+			exportFile << "- "+task+"\n"
+		else
+			if dueDate!= nil and completedDate == nil
+				time = Time.at(dueDate)
+				correctDate = time.to_i()+978336000 #+11 years and 8 hours
+				newTime = Time.at(correctDate)
+				time = newTime.month.to_s() + "/" + newTime.day.to_s() + "/" + newTime.year.to_s()
+				exportFile << "- "+task+" **"+time+"**\n"	
+				#puts row[2]
+			end
+			if completedDate != nil
+				exportFile <<  "- *"+task+"* **@done**\n"
+			end
+			if task != nil and note != nil and dueDate == nil and completedDate == nil
 				exportFile << "- "+task+"\n"
-			else
-				if dueDate!= nil and completedDate == nil
-					time = Time.at(dueDate)
-					correctDate = time.to_i()+978336000 #+11 years and 8 hours
-					newTime = Time.at(correctDate)
-					time = newTime.month.to_s() + "/" + newTime.day.to_s() + "/" + newTime.year.to_s()
-					exportFile << "- "+task+" **"+time+"**\n"	
-					#puts row[2]
-				end
-				if completedDate != nil
-					exportFile <<  "- *"+task+"* **@done**\n"
-				end
-				if task != nil and note != nil and dueDate == nil and completedDate == nil
-					exportFile << "- "+task+"\n"
-				end
-				if note != nil
-					exportFile << "    - "+note+"\n"
-				end
+			end
+			if note != nil
+				exportFile << "    - "+note+"\n"
 			end
 		end
-		k+=1
-	end 
+		taskTotal+=1
+	end
+	k+=1
+end 
 
-exportFile.close()	
+
+exportFile.close()
+puts "Done: " + taskTotal.to_s() + " Tasks Exported"	

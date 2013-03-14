@@ -7,11 +7,11 @@ Ruby script to export tasks from Wunderlist 2. Requires Ruby 1.9 or greater (tes
 
 ###Usage:
 
-The ruby script takes one arguement. It is the output directory you want the Tasks to be output to. This directory must exist or everything will crash. The script will make a file with all tasks in it. It is recommended that you exit Wunderlist 2 before running this script.
+The ruby script takes no arguements. The output directory that the Tasks to be output to is ~/Desktop. The script will make a file with all tasks in it. It is recommended that you exit Wunderlist 2 before running this script.
 
 example:
 ```
- ruby wunderlistExport.rb ~/Desktop/
+ ruby wunderlistExport.rb
  ```
 
 ##Developer Notes:
