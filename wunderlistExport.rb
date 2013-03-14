@@ -63,7 +63,7 @@ end
 			note = row[1]
 			dueDate = row[2]
 			completedDate = row[3]
-
+			
 			if note == nil and dueDate == nil and completedDate == nil
 				exportFile << "- "+task+"\n"
 			else
@@ -82,7 +82,7 @@ end
 					exportFile << "- "+task+"\n"
 				end
 				if note != nil
-					exportFile << "`\n"+note+"\n`\n"
+					exportFile << "    - "+note+"\n"
 				end
 			end
 		end
