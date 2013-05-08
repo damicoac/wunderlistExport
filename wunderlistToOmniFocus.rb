@@ -73,14 +73,14 @@ while k < hashIterator.length
 			
 		if note != nil
 			exportFile << "    tell front document\n"
-			exportFile << "    set theContext to first flattened context where its name = \"Process\"\n"
+			exportFile << "    set theContext to first flattened context where its name = \"Single action\"\n"
         	exportFile << "    set theProject to first flattened project where its name = \"Input\"\n"
 			exportFile << "        tell theProject to make new task with properties {name:\""+task+"\",note:\""+note+"\", context:theContext}\n"
 			exportFile << "    end tell\n\n"
 		end
 		if note == nil
 			exportFile << "    tell front document\n"
-			exportFile << "    set theContext to first flattened context where its name = \"Process\"\n"
+			exportFile << "    set theContext to first flattened context where its name = \"Single action\"\n"
         	exportFile << "    set theProject to first flattened project where its name = \"Input\"\n"
 			exportFile << "        tell theProject to make new task with properties {name:\""+task+"\", context:theContext}\n"
 			exportFile << "    end tell\n\n"
